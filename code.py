@@ -27,13 +27,13 @@ from constants import *
 from keyconfig.adb import *
 from keyconfig.teams import *
 from keyconfig.dota import *
-from keyconfig.keypad import *
+from keyconfig.arrows import *
 #------------------------------------
 for _ in range(10):
     print(" ")
 print("  ============ NEW EXECUTION ============  ")
 #------------------------------------
-interfaces = [ AdbKeypad, TeamsKeypad, DotAKeypad ]
+interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad ]
 currentInterface = -1
 #------------------------------------
 
@@ -100,7 +100,7 @@ if USE_DISPLAY:
     rainbow.append(picoDisplay.createText("Welcome", COLOUR_BLACK, 30, 40))
     picoDisplay.render(rainbow, 270)
 #------------------------------------
-currentKeypadConfiguration = KeypadInterface(kbd, layout, setKeyColour)
+currentKeypadConfiguration = ArrowsKeypad(kbd, layout, setKeyColour)
 currentKeypadConfiguration.introduce()
 #------------------------------------
 helpMode=False
@@ -126,4 +126,7 @@ while True:
             print(currentKeypadConfiguration.helpForKey(keyIndex))
             helpMode = False
         else:
+            if keyIndex == 15 and event & EVENT_SINGLE_PRESS:
+                print("here with key 15, going to swap")
+                swapLayout()
             currentKeypadConfiguration.handleEvent(keyIndex, event)

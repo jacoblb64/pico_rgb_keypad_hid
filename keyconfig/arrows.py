@@ -4,7 +4,7 @@ from adafruit_hid.keycode import Keycode
 
 RAINBOW = [COLOUR_RED, COLOUR_ORANGE, COLOUR_YELLOW, COLOUR_GREEN, COLOUR_BLUE, COLOUR_INDIGO, COLOUR_VIOLET]
 
-class KeypadInterface():
+class ArrowsKeypad():
     #--- OPTIONAL METHODS ---
     def tasteTheRainbow(self, index):
         DIAG = [[0],[1,4],[2,5,8],[3,6,9,12],[7,10,13],[11,14],[15]]
