@@ -15,7 +15,7 @@ from adafruit_hid.consumer_control_code import ConsumerControlCode
 
 from digitalio import DigitalInOut, Direction, Pull
 #------------------------------------
-USE_DISPLAY = True
+USE_DISPLAY = False
 if USE_DISPLAY:
     from picodisplay import *
     picoDisplay = PicoDisplay()
@@ -23,10 +23,11 @@ if USE_DISPLAY:
     wallpapers = [ picoDisplay.getAndroid, picoDisplay.getTeams, picoDisplay.getDota ]
 #------------------------------------
 from constants import *
-from keypad import *
+# from keypad import *
 from keyconfig.adb import *
 from keyconfig.teams import *
 from keyconfig.dota import *
+from keyconfig.keypad import *
 #------------------------------------
 for _ in range(10):
     print(" ")
