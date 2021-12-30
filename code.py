@@ -24,17 +24,17 @@ if USE_DISPLAY:
 #------------------------------------
 from constants import *
 # from keypad import *
-from keyconfig.adb import *
 from keyconfig.teams import *
 from keyconfig.dota import *
 from keyconfig.arrows import *
+from keyconfig.zoom import *
 #------------------------------------
 for _ in range(10):
     print(" ")
 print("  ============ NEW EXECUTION ============  ")
 #------------------------------------
-interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad ]
-currentInterface = -1
+interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad, ZoomKeypad ]
+currentInterface = 0
 #------------------------------------
 
 # CS  : GP17 - 22

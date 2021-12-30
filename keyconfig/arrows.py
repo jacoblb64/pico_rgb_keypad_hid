@@ -110,8 +110,8 @@ class ArrowsKeypad():
     def handleEvent(self, keyIndex, event):
         if event & EVENT_SINGLE_PRESS:
             print("  ~~> [", keyIndex, "] single press")
-            if keyIndex == 15:
-                self.introduce(keyIndex)
+            if keyIndex == 14:
+                self.introduce()
                 self.resetColours(self.getKeyColours())
         elif event & EVENT_DOUBLE_PRESS:
             print("  ~~> [", keyIndex, "] double press")

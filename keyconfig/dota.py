@@ -117,5 +117,5 @@ class DotAKeypad():
         elif index == 13:
             self.keyboard.send(Keycode.F1) #Focus Hero
         elif index == 14:
-            self.keyboard.send(Keycode.F2) #Controlled Units
+            self.introduce()
     #------------------------
