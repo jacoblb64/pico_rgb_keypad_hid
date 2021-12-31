@@ -1,6 +1,6 @@
 import time
-from constants import *
-from adafruit_hid.keycode import Keycode
+from lib.constants import *
+from lib.adafruit_hid.keycode import Keycode
 
 class AdbKeypad():
     #--- OPTIONAL METHODS ---

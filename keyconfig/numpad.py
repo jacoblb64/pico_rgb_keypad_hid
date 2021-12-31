@@ -2,49 +2,41 @@ import time
 from lib.constants import *
 from lib.adafruit_hid.keycode import Keycode
 
-class TeamsKeypad():
+class NumpadKeypad():
     #--- OPTIONAL METHODS ---
-
-    def teamsIntro(self, frame):
+    def numpadIntro(self, frame):
         if frame >= 4:
             return
         for row in range(4):
             index = (frame * 4) + row
             self.setKeyColour(index, self.IMAGE[index])
 
-    def teamsMicToggle(self):
-        self.keyboard.send(Keycode.COMMAND, Keycode.SHIFT, Keycode.M)
-    def teamsCameraToggle(self):
-        self.keyboard.send(Keycode.COMMAND, Keycode.SHIFT, Keycode.O)
-    def teamsHangUp(self):
-        self.keyboard.send(Keycode.COMMAND, Keycode.SHIFT, Keycode.B)
-
     #------------------------
     #--- REQUIRED METHODS ---
     IMAGE = [
-            COLOUR_WHITE, COLOUR_WHITE, COLOUR_WHITE, COLOUR_WHITE,
-            COLOUR_WHITE, COLOUR_INDIGO, COLOUR_INDIGO, COLOUR_INDIGO,
-            COLOUR_WHITE, COLOUR_WHITE, COLOUR_INDIGO, COLOUR_WHITE,
-            COLOUR_WHITE, COLOUR_WHITE, COLOUR_INDIGO, COLOUR_WHITE
-        ]
+        COLOUR_RED, COLOUR_ORANGE, COLOUR_YELLOW, COLOUR_GREEN,
+        COLOUR_RED, COLOUR_ORANGE, COLOUR_YELLOW, COLOUR_VIOLET,
+        COLOUR_RED, COLOUR_ORANGE, COLOUR_YELLOW, COLOUR_VIOLET,
+        COLOUR_BLUE, COLOUR_BLUE, COLOUR_GREEN, COLOUR_WHITE
+    ]
 
     def loop(self):
         if self.startAnimationTime > 0:
             estimatedFrame = int((timeInMillis() - self.startAnimationTime) / (ANIMATION_FRAME_MILLIS * 2))
             if estimatedFrame > self.currentFrame:
                 # render new animation frame
-                self.teamsIntro(self.frameIndex)
+                self.numpadIntro(self.frameIndex)
                 self.frameIndex += 1
                 # print("  ~~> Animation frame: ", estimatedFrame)
                 self.currentFrame = estimatedFrame
-                if self.frameIndex >= self.maxFrame:
+                if self.frameIndex > self.maxFrame:
                     self.startAnimationTime = -1
 
     def getKeyColours(self):
         return (
-            (darkVersion(self.IMAGE[0]),  COLOUR_ORANGE),
-            (darkVersion(self.IMAGE[1]),  COLOUR_BLUE),
-            (darkVersion(self.IMAGE[2]),  COLOUR_RED),
+            (darkVersion(self.IMAGE[0]),  COLOUR_CLEAR),
+            (darkVersion(self.IMAGE[1]),  COLOUR_CLEAR),
+            (darkVersion(self.IMAGE[2]),  COLOUR_CLEAR),
             (darkVersion(self.IMAGE[3]),  COLOUR_CLEAR),
             (darkVersion(self.IMAGE[4]),  COLOUR_CLEAR),
             (darkVersion(self.IMAGE[5]),  COLOUR_CLEAR),
@@ -69,7 +61,7 @@ class TeamsKeypad():
         self.resetColours(COLOUR_OFF)
         self.startAnimationTime = timeInMillis()
         self.currentFrame = -1
-        self.maxFrame = 4
+        self.maxFrame = 16
         self.frameIndex = 0
 
     def resetColours(self, colours):
@@ -79,16 +71,49 @@ class TeamsKeypad():
             elif len(colours) == BUTTON_COUNT:
                 self.setKeyColour(key, colours[key][0])
 
-    def handleEvent(self, index, event):
-        if not event & EVENT_SINGLE_PRESS:
-            return
+    def handleEvent(self, keyIndex, event):
+        button_map = {
+            0: Keycode.KEYPAD_SEVEN,
+            1: Keycode.KEYPAD_EIGHT,
+            2: Keycode.KEYPAD_NINE,
+            4: Keycode.KEYPAD_FOUR,
+            5: Keycode.KEYPAD_FIVE,
+            6: Keycode.KEYPAD_SIX,
+            8: Keycode.KEYPAD_ONE,
+            9: Keycode.KEYPAD_TWO,
+            10: Keycode.KEYPAD_THREE,
+            12: Keycode.KEYPAD_ZERO,
+            13: Keycode.KEYPAD_ZERO,
 
-        if index == 0:
-            self.teamsMicToggle()
-        elif index == 1:
-            self.teamsCameraToggle()
-        elif index == 2:
-            self.teamsHangUp()
-        elif index == 14:
-            self.introduce()
+            3: Keycode.KEYPAD_PLUS,
+            
+            7: Keycode.KEYPAD_ENTER,
+            11: Keycode.KEYPAD_ENTER,
+        }
+
+        if event & EVENT_SINGLE_PRESS:
+            print("  ~~> [", keyIndex, "] single press")
+
+            if keyIndex == 14:
+                self.introduce()
+                self.resetColours(self.getKeyColours())
+
+        elif event & EVENT_DOUBLE_PRESS:
+            print("  ~~> [", keyIndex, "] double press")
+        elif event & EVENT_LONG_PRESS:
+            print("  ~~> [", keyIndex, "] long press")
+        elif event & EVENT_EXTRA_LONG_PRESS:
+            print("  ~~> [", keyIndex, "] extra long press")
+        
+        if event & EVENT_KEY_DOWN:
+            print("    ~~> [", keyIndex, "] key down")
+
+            if keyIndex in button_map:
+                self.keyboard.press(button_map[keyIndex])
+
+        if event & EVENT_KEY_UP:
+            print("    ~~> [", keyIndex, "] key up")
+            if keyIndex in button_map:
+                self.keyboard.release(button_map[keyIndex])
+
     #------------------------

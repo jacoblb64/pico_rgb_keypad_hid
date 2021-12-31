@@ -6,34 +6,35 @@ import usb_hid
 from adafruit_bus_device.i2c_device import I2CDevice
 import adafruit_dotstar
 
-from adafruit_hid.keyboard import Keyboard
-from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
-from adafruit_hid.keycode import Keycode
+from lib.adafruit_hid.keyboard import Keyboard
+from lib.adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
+from lib.adafruit_hid.keycode import Keycode
 
-from adafruit_hid.consumer_control import ConsumerControl
-from adafruit_hid.consumer_control_code import ConsumerControlCode
+from lib.adafruit_hid.consumer_control import ConsumerControl
+from lib.adafruit_hid.consumer_control_code import ConsumerControlCode
 
 from digitalio import DigitalInOut, Direction, Pull
 #------------------------------------
 USE_DISPLAY = False
 if USE_DISPLAY:
-    from picodisplay import *
+    from lib.picodisplay import *
     picoDisplay = PicoDisplay()
     picoDisplay.setBacklightPercent(10)
     wallpapers = [ picoDisplay.getAndroid, picoDisplay.getTeams, picoDisplay.getDota ]
 #------------------------------------
-from constants import *
+from lib.constants import *
 # from keypad import *
 from keyconfig.teams import *
 from keyconfig.dota import *
 from keyconfig.arrows import *
 from keyconfig.zoom import *
+from keyconfig.numpad import *
 #------------------------------------
 for _ in range(10):
     print(" ")
 print("  ============ NEW EXECUTION ============  ")
 #------------------------------------
-interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad, ZoomKeypad ]
+interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad, ZoomKeypad, NumpadKeypad ]
 currentInterface = 0
 #------------------------------------
 

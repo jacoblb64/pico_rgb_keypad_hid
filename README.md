@@ -1,5 +1,10 @@
 # PICO rgb HID keypad
 
+Forked from qbaldson's [project](https://github.com/qbalsdon/pico_rgb_keypad_hid) which was a great starting point. I'll be adding my configurations and tweaks here!
+
+original readme as follows:
+___
+
 ### All files are in the repository because I know they work. I have also reference the authors so that updates may be located should this repository fall behind
 
 # Steps for basic install

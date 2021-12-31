@@ -1,6 +1,6 @@
 import time
-from constants import *
-from adafruit_hid.keycode import Keycode
+from lib.constants import *
+from lib.adafruit_hid.keycode import Keycode
 
 RAINBOW = [COLOUR_RED, COLOUR_ORANGE, COLOUR_YELLOW, COLOUR_GREEN, COLOUR_BLUE, COLOUR_INDIGO, COLOUR_VIOLET]
 

@@ -1,6 +1,6 @@
 import time
-from constants import *
-from adafruit_hid.keycode import Keycode
+from lib.constants import *
+from lib.adafruit_hid.keycode import Keycode
 
 class ZoomKeypad():
     #--- OPTIONAL METHODS ---
@@ -76,8 +76,13 @@ class ZoomKeypad():
     def handleEvent(self, keyIndex, event):
         if event & EVENT_SINGLE_PRESS:
             print("  ~~> [", keyIndex, "] single press")
-            self.introduce()
-            self.resetColours(self.getKeyColours())
+
+            if keyIndex == 14:
+                self.introduce()
+                self.resetColours(self.getKeyColours())
+            elif keyIndex == 0:
+                self.keyboard.send(Keycode.PAGE_UP)
+
         elif event & EVENT_DOUBLE_PRESS:
             print("  ~~> [", keyIndex, "] double press")
         elif event & EVENT_LONG_PRESS:
