@@ -23,9 +23,8 @@ if USE_DISPLAY:
     wallpapers = [ picoDisplay.getAndroid, picoDisplay.getTeams, picoDisplay.getDota ]
 #------------------------------------
 from lib.constants import *
-# from keypad import *
-from keyconfig.teams import *
-from keyconfig.dota import *
+# from keyconfig.teams import *
+# from keyconfig.dota import *
 from keyconfig.arrows import *
 from keyconfig.zoom import *
 from keyconfig.numpad import *
@@ -34,7 +33,7 @@ for _ in range(10):
     print(" ")
 print("  ============ NEW EXECUTION ============  ")
 #------------------------------------
-interfaces = [ ArrowsKeypad, TeamsKeypad, DotAKeypad, ZoomKeypad, NumpadKeypad ]
+interfaces = [ ArrowsKeypad, ZoomKeypad, NumpadKeypad ]
 currentInterface = 0
 #------------------------------------
 
